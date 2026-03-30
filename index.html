@@ -1,9 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Central</title>
+  <meta charset="UTF-8">
+  <title>Central de Sistemas</title>
+
+  <style>
+    body {
+      background: #0f172a;
+      color: #fff;
+      font-family: Arial;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      margin: 20px auto;
+      width: 250px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background: #334155;
+    }
+  </style>
 </head>
 <body>
-  <h1>Central de Sistemas funcionando 🚀</h1>
+
+<h1>Central de Sistemas</h1>
+
+<div class="card" onclick="window.open('https://altitudetopo.vercel.app/', '_blank')">
+  📊 Geocontrol
+</div>
+
+<div class="card" onclick="window.open('https://rhaltitude.vercel.app/', '_blank')">
+  👷 PRHControl
+</div>
+
+<div class="card">
+  ➕ Novo sistema (em breve)
+</div>
+
 </body>
 </html>
