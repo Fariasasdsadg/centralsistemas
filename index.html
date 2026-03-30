@@ -88,11 +88,27 @@ body {
   transform: translateX(0);
 }
 
+/* MARCA D'ÁGUA */
+.watermark {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: url('logo.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.035;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 /* CARDS */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
@@ -167,7 +183,9 @@ iframe {
   <!-- DASHBOARD -->
   <div id="dashboard" class="screen visible">
 
-    <h1>Central de Sistemas</h1>
+    <div class="watermark"></div>
+
+    <h1 style="position: relative; z-index: 1;">Central de Sistemas</h1>
     <br>
 
     <div class="cards">
