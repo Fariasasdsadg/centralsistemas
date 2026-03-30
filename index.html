@@ -1,52 +1,157 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Central de Sistemas</title>
+<meta charset="UTF-8">
+<title>Central de Sistemas</title>
 
-  <style>
-    body {
-      background: #0f172a;
-      color: #fff;
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
+}
 
-    h1 {
-      margin-bottom: 40px;
-    }
+body {
+  display: flex;
+  background: #0f172a;
+  color: #fff;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      margin: 20px auto;
-      width: 250px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #020617;
+  padding: 20px;
+}
 
-    .card:hover {
-      transform: scale(1.05);
-      background: #334155;
-    }
-  </style>
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 15px 0;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.sidebar li:hover {
+  opacity: 1;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 30px;
+}
+
+/* DASHBOARD */
+.metrics {
+  display: flex;
+  gap: 20px;
+}
+
+.metric {
+  flex: 1;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.metric h3 {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.metric span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* CARDS */
+.cards {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: #334155;
+}
+
+</style>
 </head>
+
 <body>
 
-<h1>Central de Sistemas</h1>
-
-<div class="card" onclick="window.open('https://altitudetopo.vercel.app/', '_blank')">
-  📊 Geocontrol
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Altitude</h2>
+  <ul>
+    <li>🏠 Dashboard</li>
+    <li>📊 Sistemas</li>
+    <li>⚙️ Configurações</li>
+  </ul>
 </div>
 
-<div class="card" onclick="window.open('https://rhaltitude.vercel.app/', '_blank')">
-  👷 RHControl
-</div>
+<!-- MAIN -->
+<div class="main">
 
-<div class="card">
-  ➕ Novo sistema (em breve)
+  <h1>Central de Sistemas</h1>
+
+  <!-- MÉTRICAS -->
+  <div class="metrics">
+    <div class="metric">
+      <h3>Sistemas Ativos</h3>
+      <span>2</span>
+    </div>
+
+    <div class="metric">
+      <h3>Status</h3>
+      <span>Online</span>
+    </div>
+
+    <div class="metric">
+      <h3>Empresa</h3>
+      <span>Altitude</span>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards">
+
+    <div class="card" onclick="window.open('https://altitudetopo.vercel.app/', '_blank')">
+      <h3>📊 Geocontrol</h3>
+      <p>Sistema de Topografia</p>
+    </div>
+
+    <div class="card" onclick="window.open('https://rhaltitude.vercel.app/', '_blank')">
+      <h3>👷 PRHControl</h3>
+      <p>Gestão de RH</p>
+    </div>
+
+    <div class="card">
+      <h3>➕ Novo Sistema</h3>
+      <p>Em breve</p>
+    </div>
+
+  </div>
+
 </div>
 
 </body>
