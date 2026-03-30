@@ -45,6 +45,7 @@ body {
   font-weight: bold;
 }
 
+/* MENU */
 .menu li {
   list-style: none;
   padding: 10px;
@@ -88,7 +89,7 @@ body {
   transform: translateX(0);
 }
 
-/* MARCA D'ÁGUA */
+/* 🔥 MARCA D'ÁGUA COM ANIMAÇÃO */
 .watermark {
   position: absolute;
   width: 500px;
@@ -100,6 +101,23 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  animation: respirar 6s ease-in-out infinite;
+}
+
+/* ANIMAÇÃO SUAVE */
+@keyframes respirar {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.03;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+    opacity: 0.05;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.03;
+  }
 }
 
 /* CARDS */
