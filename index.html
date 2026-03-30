@@ -209,17 +209,6 @@ function abrirSistema(url) {
 
   document.getElementById("sistema").classList.remove("hidden");
   document.getElementById("sistema").classList.add("visible");
-
-  // fallback se bloquear iframe
-  setTimeout(() => {
-    try {
-      if (!frame.contentWindow.location.href) {
-        window.open(url, '_blank');
-      }
-    } catch {
-      window.open(url, '_blank');
-    }
-  }, 2000);
 }
 
 function voltar() {
