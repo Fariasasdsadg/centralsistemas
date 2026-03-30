@@ -2,48 +2,75 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Central de Sistemas</title>
+<title>Central Altitude</title>
 
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Arial;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
   display: flex;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #EEF2F7;
+  color: #1E293B;
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 220px;
+  width: 230px;
   height: 100vh;
-  background: #020617;
-  padding: 25px 20px;
+  background: #EEF2F7;
+  border-right: 1.5px solid #E2E8F0;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.05);
+  padding: 20px;
 }
 
-.sidebar h2 {
-  margin-bottom: 40px;
-  font-size: 20px;
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
 }
 
-.sidebar ul {
+.logo-box {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg,#334155,#64748B);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.logo-text {
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.logo-sub {
+  font-size: 10px;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+/* MENU */
+.menu li {
   list-style: none;
-}
-
-.sidebar li {
-  margin: 18px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
   cursor: pointer;
-  opacity: 0.7;
+  margin-bottom: 8px;
   transition: 0.2s;
 }
 
-.sidebar li:hover {
-  opacity: 1;
+.menu li:hover {
+  background: rgba(51,65,85,0.08);
 }
 
 /* MAIN */
@@ -52,14 +79,10 @@ body {
   padding: 40px;
 }
 
-/* TITULO */
-.header {
-  margin-bottom: 30px;
-}
-
+/* HEADER */
 .header h1 {
-  font-size: 26px;
-  font-weight: 500;
+  font-size: 22px;
+  margin-bottom: 25px;
 }
 
 /* CARDS */
@@ -70,30 +93,38 @@ body {
 }
 
 .card {
-  background: #1e293b;
-  padding: 25px;
-  border-radius: 14px;
+  background: white;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
   cursor: pointer;
   transition: 0.25s;
-  border: 1px solid transparent;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  border: 1px solid #38bdf8;
-  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
 
 .card h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
+  margin-bottom: 8px;
 }
 
 .card p {
   font-size: 14px;
-  opacity: 0.7;
+  color: #64748B;
 }
 
+.tag {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(100,116,139,0.15);
+  color: #334155;
+}
 </style>
 </head>
 
@@ -101,40 +132,49 @@ body {
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-  <h2>Altitude</h2>
-  <ul>
-    <li onclick="mostrarDashboard()">🏠 Dashboard</li>
-    <li onclick="mostrarSistemas()">📊 Sistemas</li>
+
+  <div class="logo">
+    <div class="logo-box">ALT</div>
+    <div>
+      <div class="logo-text">Altitude</div>
+      <div class="logo-sub">Central</div>
+    </div>
+  </div>
+
+  <ul class="menu">
+    <li onclick="scrollTopPage()">Dashboard</li>
+    <li onclick="scrollTopPage()">Sistemas</li>
   </ul>
+
 </div>
 
 <!-- MAIN -->
 <div class="main">
 
-  <!-- DASHBOARD -->
-  <div id="dashboard">
-    <div class="header">
-      <h1>Central de Sistemas</h1>
+  <div class="header">
+    <h1>Central de Sistemas</h1>
+  </div>
+
+  <div class="cards">
+
+    <div class="card" onclick="abrirSistema('https://altitudetopo.vercel.app/')">
+      <h3>Geocontrol</h3>
+      <p>Gestão de topografia</p>
+      <span class="tag">Topografia</span>
     </div>
 
-    <div class="cards">
-
-      <div class="card" onclick="abrirSistema('https://altitudetopo.vercel.app/')">
-        <h3>📊 Geocontrol</h3>
-        <p>Sistema de Topografia</p>
-      </div>
-
-      <div class="card" onclick="abrirSistema('https://rhaltitude.vercel.app/')">
-        <h3>👷 RHControl</h3>
-        <p>Gestão de RH</p>
-      </div>
-
-      <div class="card">
-        <h3>➕ Novo Sistema</h3>
-        <p>Em breve</p>
-      </div>
-
+    <div class="card" onclick="abrirSistema('https://rhaltitude.vercel.app/')">
+      <h3>RHControl</h3>
+      <p>Gestão de equipe</p>
+      <span class="tag">RH</span>
     </div>
+
+    <div class="card">
+      <h3>Novo sistema</h3>
+      <p>Em desenvolvimento</p>
+      <span class="tag">Em breve</span>
+    </div>
+
   </div>
 
 </div>
@@ -144,12 +184,8 @@ function abrirSistema(url) {
   window.open(url, '_blank');
 }
 
-function mostrarDashboard() {
-  document.getElementById("dashboard").style.display = "block";
-}
-
-function mostrarSistemas() {
-  document.getElementById("dashboard").style.display = "block";
+function scrollTopPage() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 
