@@ -117,7 +117,7 @@ async function sb(path, options = {}) {
 }
 
 // Helpers Supabase
-const sbSelect  = (table, query = "*") => sb(`/${table}?select=${query}&order=created_at.desc`);
+const sbSelect  = (table, query = "*") => sb(`/${table}?select=${query}&order=created_at.desc`).then(r => Array.isArray(r) ? r : []);
 const sbInsert  = (table, body)        => sb(`/${table}`, { method: "POST", body: JSON.stringify(body) });
 const sbUpdate  = (table, id, body)    => sb(`/${table}?id=eq.${id}`, { method: "PATCH", body: JSON.stringify(body) });
 const sbDelete  = (table, id)          => sb(`/${table}?id=eq.${id}`, { method: "DELETE", prefer: "return=minimal" });
@@ -254,8 +254,8 @@ const MOCK = {
 // HOOK GENÉRICO — carrega dados do Supabase ou MOCK
 // ============================================================
 function useTable(table, mockKey, selectQuery = "*") {
-  const [data, setData]       = useState(MOCK[mockKey] || []);
-  const [loading, setLoading] = useState(false);
+  const [data, setData]       = useState(USE_SUPABASE ? [] : (MOCK[mockKey] || []));
+  const [loading, setLoading] = useState(USE_SUPABASE);
   const [error, setError]     = useState(null);
 
   const load = useCallback(async () => {
@@ -264,7 +264,9 @@ function useTable(table, mockKey, selectQuery = "*") {
     setError(null);
     try {
       const rows = await sbSelect(table, selectQuery);
-      setData(rows || []);
+      if (Array.isArray(rows)) {
+        setData(rows);
+      }
     } catch (e) {
       setError(e.message);
     } finally {
