@@ -28,7 +28,7 @@ function WelcomeScreen({ onAcessar }) {
       <div style={{ position:"absolute", inset:0, backgroundImage:"url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80')", backgroundSize:"cover", backgroundPosition:"center", filter:"brightness(0.50)" }} />
       <div style={{ position:"relative", background:"rgba(15,15,15,0.72)", backdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:20, padding:"48px 52px", textAlign:"center", minWidth:340, maxWidth:420, boxShadow:"0 24px 70px rgba(0,0,0,0.5)" }}>
         <div style={{ marginBottom:20, display:"flex", justifyContent:"center" }}>
-          <div style={{ width:72, height:72, borderRadius:16, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:32 }}>💼</div>
+          <img src="/logo_altitude.png" alt="Altitude" style={{ width:110, height:110, objectFit:"contain", filter:"drop-shadow(0 4px 16px rgba(29,184,100,0.3))" }} />
         </div>
         <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, color:"#1DB864", textTransform:"uppercase", marginBottom:8 }}>Altitude Topografia</div>
         <div style={{ fontSize:20, fontWeight:800, color:"white", marginBottom:6, lineHeight:1.2 }}>Comercial<br/>Control</div>
@@ -350,11 +350,12 @@ const Badge = ({ status }) => {
 // ============================================================
 const COLORS = {
   bg: "#f4f6f9",
-  sidebar: "#0f1923",
-  sidebarActive: "#1a2d3d",
-  accent: "#2e7d4f",
+  sidebar: "#EEF2F7",
+  sidebarActive: "rgba(29,184,100,0.08)",
+  sidebarBorder: "#E2E8F0",
+  accent: "#1DB864",
   accentLight: "#e8f5ee",
-  accentHover: "#246040",
+  accentHover: "#17a358",
   text: "#1e293b",
   textMuted: "#64748b",
   border: "#e2e8f0",
@@ -373,24 +374,25 @@ const css = `
 
   .app { display: flex; height: 100vh; overflow: hidden; }
 
-  .sidebar { width: 240px; flex-shrink: 0; background: ${COLORS.sidebar}; display: flex; flex-direction: column; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
-  .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
-  .sidebar-logo-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: ${COLORS.accent}; text-transform: uppercase; margin-bottom: 4px; }
-  .sidebar-logo-name { font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.3px; }
+  .sidebar { width: 240px; flex-shrink: 0; background: ${COLORS.sidebar}; display: flex; flex-direction: column; border-right: 1px solid ${COLORS.border}; }
+  .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid ${COLORS.border}; display: flex; align-items: center; gap: 10px; }
+  .sidebar-logo img { width: 36px; height: 36px; object-fit: contain; }
+  .sidebar-logo-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: ${COLORS.accent}; text-transform: uppercase; margin-bottom: 2px; }
+  .sidebar-logo-name { font-size: 14px; font-weight: 700; color: ${COLORS.text}; letter-spacing: -0.3px; }
   .sidebar-logo-name span { color: ${COLORS.accent}; }
-  .sidebar-logo-sub { font-size: 10px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+  .sidebar-logo-sub { font-size: 10px; color: ${COLORS.textMuted}; margin-top: 1px; }
   .sidebar-nav { flex: 1; padding: 12px 0; overflow-y: auto; }
-  .nav-section { padding: 16px 20px 6px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.25); text-transform: uppercase; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; cursor: pointer; color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; transition: all 0.15s; border-left: 3px solid transparent; }
-  .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
-  .nav-item.active { background: ${COLORS.sidebarActive}; color: #fff; border-left-color: ${COLORS.accent}; }
+  .nav-section { padding: 16px 20px 6px; font-size: 9px; font-weight: 700; letter-spacing: 2px; color: ${COLORS.textMuted}; text-transform: uppercase; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; cursor: pointer; color: ${COLORS.textMuted}; font-size: 13px; font-weight: 500; transition: all 0.15s; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(29,184,100,0.05); color: ${COLORS.text}; }
+  .nav-item.active { background: ${COLORS.sidebarActive}; color: ${COLORS.accent}; border-left-color: ${COLORS.accent}; font-weight: 700; }
   .nav-icon { font-size: 16px; width: 20px; text-align: center; }
   .nav-badge { margin-left: auto; background: ${COLORS.accent}; color: #fff; border-radius: 10px; font-size: 10px; font-weight: 700; padding: 1px 7px; }
-  .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.07); }
+  .sidebar-footer { padding: 16px 20px; border-top: 1px solid ${COLORS.border}; }
   .sidebar-user { display: flex; align-items: center; gap: 10px; }
   .sidebar-avatar { width: 32px; height: 32px; border-radius: 50%; background: ${COLORS.accent}; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
-  .sidebar-user-name { font-size: 12px; font-weight: 600; color: #fff; }
-  .sidebar-user-role { font-size: 10px; color: rgba(255,255,255,0.4); }
+  .sidebar-user-name { font-size: 12px; font-weight: 600; color: ${COLORS.text}; }
+  .sidebar-user-role { font-size: 10px; color: ${COLORS.textMuted}; }
 
   .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .topbar { height: 60px; background: #fff; border-bottom: 1px solid ${COLORS.border}; display: flex; align-items: center; padding: 0 28px; gap: 16px; flex-shrink: 0; }
@@ -1470,6 +1472,235 @@ function Propostas() {
   const detailParcelas = detail ? allParcelas.filter(pa => pa.proposta_id === detail.id) : [];
   const detailCli      = detail ? clientes.find(c => c.id === detail.cliente_id) : null;
 
+
+  // ── GERAR PDF DA PROPOSTA ─────────────────────────────────
+  const gerarPDF = async (proposta, itens, parcelas, cliente) => {
+    const fmtBR = (v) => (v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    const fmtDt = (d) => d ? new Date(d + "T00:00:00").toLocaleDateString("pt-BR") : "—";
+
+    const logoUrl = "/logo_altitude.png";
+    const logoB64 = await fetch(logoUrl).then(r => r.blob()).then(b => new Promise(res => {
+      const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(b);
+    })).catch(() => null);
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:#1e293b; background:#f1f3f5; }
+  .page { width:210mm; min-height:297mm; background:white; margin:0 auto; position:relative; }
+  .cover { width:210mm; height:297mm; background:#f1f3f5; display:flex; flex-direction:column; align-items:flex-end; justify-content:flex-end; padding:0; position:relative; page-break-after:always; }
+  .cover-logo { position:absolute; top:50%; right:40mm; transform:translateY(-50%); width:60mm; }
+  .cover-logo img { width:100%; }
+  .cover-info { padding:20mm 20mm 18mm; width:100%; }
+  .cover-title { font-size:18pt; font-weight:700; color:#1DB864; margin-bottom:8px; }
+  .cover-sub { font-size:10pt; color:#334155; }
+  .cover-sub strong { font-weight:600; }
+  .header { display:flex; align-items:center; justify-content:space-between; padding:10mm 20mm 6mm; border-bottom:3px solid #1DB864; }
+  .header-logo img { height:14mm; }
+  .header-contact { text-align:right; font-size:7.5pt; color:#64748b; line-height:1.6; }
+  .header-contact strong { color:#1DB864; }
+  .footer { position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #e2e8f0; padding:5mm 20mm; display:flex; justify-content:space-between; align-items:center; }
+  .footer-left { font-size:7pt; font-weight:700; color:#334155; }
+  .footer-right { font-size:7pt; color:#94a3b8; }
+  .footer-line { height:2px; background:linear-gradient(90deg,#1DB864,#8B4513); margin-bottom:3mm; }
+  .content-page { padding:10mm 20mm 25mm; }
+  .section-title { font-size:16pt; font-weight:700; color:#1e293b; margin:8mm 0 4mm; }
+  .intro { font-size:9.5pt; line-height:1.7; color:#475569; text-align:justify; margin-bottom:6mm; }
+  .address-block { margin-bottom:8mm; font-size:9.5pt; line-height:1.8; }
+  .address-block .to { font-weight:700; }
+  .ref { font-weight:700; }
+  .signature { margin-top:12mm; }
+  .sig-line { width:50mm; border-bottom:1px solid #334155; margin-bottom:2mm; }
+  .sig-name { font-size:9pt; font-weight:700; }
+  .sig-role { font-size:8pt; color:#64748b; }
+  table.inv { width:100%; border-collapse:collapse; margin:4mm 0; font-size:9pt; }
+  table.inv thead th { background:#f8fafc; padding:8px 10px; text-align:left; font-size:8pt; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#64748b; border-bottom:2px solid #e2e8f0; }
+  table.inv thead th:not(:first-child) { text-align:right; }
+  table.inv tbody td { padding:8px 10px; border-bottom:1px solid #f1f5f9; font-size:9pt; }
+  table.inv tbody td:not(:first-child) { text-align:right; }
+  table.inv tfoot td { padding:8px 10px; font-weight:700; font-size:9.5pt; background:#f8fafc; border-top:2px solid #e2e8f0; text-align:right; }
+  table.inv tfoot td:first-child { text-align:left; color:#64748b; }
+  .payment-title { font-size:13pt; font-weight:700; color:#1DB864; text-align:center; margin:6mm 0 4mm; }
+  .payment-item { display:flex; align-items:center; gap:8px; margin-bottom:4mm; font-size:9.5pt; }
+  .payment-bullet { width:8px; height:8px; border-radius:50%; background:#1DB864; flex-shrink:0; }
+  .conditions { font-size:8.5pt; line-height:1.7; color:#475569; }
+  .cond-title { font-size:10pt; font-weight:700; color:#1e293b; margin:6mm 0 2mm; }
+  .divider { height:1px; background:#e2e8f0; margin:6mm 0; }
+  @media print {
+    body { background:white; }
+    .page { margin:0; box-shadow:none; }
+    .footer { position:fixed; bottom:0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="page cover">
+  <div class="cover-logo">
+    ${logoB64 ? `<img src="${logoB64}" alt="Altitude"/>` : ''}
+  </div>
+  <div class="cover-info">
+    <div class="cover-title">${proposta.codigo} Carta Proposta - ${proposta.titulo}</div>
+    <div class="cover-sub">
+      <strong>A/C:</strong> ${cliente?.contato || "—"} | ${cliente?.razao_social || "—"} | ${cliente?.cnpj || "—"}<br/>
+      <strong>Data:</strong> ${fmtDt(proposta.data_emissao)}<br/>
+      <strong>Validade:</strong> ${fmtDt(proposta.data_validade)}
+    </div>
+  </div>
+</div>
+
+<!-- CARTA -->
+<div class="page">
+  <div class="header">
+    <div class="header-logo">${logoB64 ? `<img src="${logoB64}" alt="Altitude"/>` : '<strong>ALTITUDE</strong>'}</div>
+    <div class="header-contact">
+      <strong>Altitude Topografia e Engenharia</strong><br/>
+      (34) 99880-2604 / (34) 99672-5798 - @altitude.te<br/>
+      lourenco@altitudetopo.com.br / marcosdiego@altitudetopo.com.br
+    </div>
+  </div>
+  <div class="content-page">
+    <div class="address-block">
+      <div class="to">À ${cliente?.razao_social || "—"}</div>
+      <div>A/C.: ${cliente?.contato || "—"}</div>
+      <div class="ref">Ref: Proposta ${proposta.codigo} ${proposta.titulo}</div>
+    </div>
+    <p class="intro">Prezados.</p>
+    <p class="intro">Em resposta à solicitação, gostaríamos de agradecer a oportunidade e assegurar o nosso total empenho na obtenção de sua plena satisfação.</p>
+    <p class="intro">A presente proposta compreende à <strong>${proposta.descricao_servico || proposta.titulo}</strong>${cliente?.cidade ? `. Obra situada na cidade de ${cliente.cidade}${cliente.estado ? "-" + cliente.estado : ""}` : ""}.</p>
+    <p class="intro">Se considerar que alguma informação necessita de esclarecimentos, é omissa ou não está de acordo com o que foi solicitado, por gentileza, entre em contato conosco para procedermos aos ajustes e esclarecimentos necessários.</p>
+    <p class="intro">Sem outro assunto de momento, reiteramos o nosso interesse em colaborar com seu projeto e apresentamos os nossos melhores cumprimentos.</p>
+    <div class="signature">
+      <p style="font-size:9.5pt;margin-bottom:10mm;">Atenciosamente,</p>
+      <div class="sig-line"></div>
+      <div class="sig-name">Lourenço Farias | Sócio-Proprietário</div>
+      <div class="sig-role">lourenco@altitudetopo.com.br</div>
+    </div>
+  </div>
+  <div class="footer">
+    <div>
+      <div class="footer-line"></div>
+      <div class="footer-left">Altitude Topografia e Engenharia</div>
+      <div style="font-size:7pt;color:#94a3b8;">(34) 99880-2604 / (34) 99672-5798 · lourenco@altitudetopo.com.br</div>
+    </div>
+    <div class="footer-right">Página 2</div>
+  </div>
+</div>
+
+<!-- INVESTIMENTO -->
+<div class="page">
+  <div class="header">
+    <div class="header-logo">${logoB64 ? `<img src="${logoB64}" alt="Altitude"/>` : '<strong>ALTITUDE</strong>'}</div>
+    <div class="header-contact">
+      <strong>Altitude Topografia e Engenharia</strong><br/>
+      (34) 99880-2604 / (34) 99672-5798 - @altitude.te<br/>
+      lourenco@altitudetopo.com.br / marcosdiego@altitudetopo.com.br
+    </div>
+  </div>
+  <div class="content-page">
+    <div class="section-title">Investimento</div>
+    <p style="font-size:9.5pt;color:#64748b;margin-bottom:4mm;">Os valores para a execução dos serviços são:</p>
+    <table class="inv">
+      <thead><tr><th>Descrição</th><th>Código</th><th>Valor Unit.</th><th>Qtd.</th><th>Valor Total</th></tr></thead>
+      <tbody>
+        ${itens.map(i => `<tr>
+          <td>${i.descricao}</td>
+          <td>${i.codigo_unidade || "—"}</td>
+          <td>${fmtBR(i.valor_unitario)}</td>
+          <td>${(i.quantidade || 0).toLocaleString("pt-BR")}</td>
+          <td><strong>${fmtBR(i.valor_total)}</strong></td>
+        </tr>`).join("")}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">Subtotal</td>
+          <td>${fmtBR(proposta.valor_total)}</td>
+        </tr>
+        ${proposta.desconto > 0 ? `<tr><td colspan="4" style="color:#dc2626;">Desconto</td><td style="color:#dc2626;">- ${fmtBR(proposta.desconto)}</td></tr>` : ""}
+        <tr>
+          <td colspan="4" style="color:#1DB864;font-size:10.5pt;">Total</td>
+          <td style="color:#1DB864;font-size:10.5pt;">${fmtBR(proposta.valor_com_desconto || proposta.valor_total)}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    ${parcelas.length > 0 ? `
+    <div class="payment-title">Plano de pagamentos</div>
+    ${parcelas.map(pa => `
+      <div class="payment-item">
+        <div class="payment-bullet"></div>
+        <span>${pa.descricao || "Parcela " + pa.numero} — <strong>${fmtBR(pa.valor)}</strong></span>
+      </div>
+    `).join("")}` : ""}
+
+    ${proposta.revisoes_inclusas > 0 ? `
+    <div style="margin-top:8mm;background:#fef9ec;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;font-size:8.5pt;color:#92400e;">
+      ⚠️ Esta proposta inclui <strong>${proposta.revisoes_inclusas} revisões</strong> (desde que não alterados projetos da implantação arquitetônica).
+    </div>` : ""}
+  </div>
+  <div class="footer">
+    <div>
+      <div class="footer-line"></div>
+      <div class="footer-left">Altitude Topografia e Engenharia</div>
+      <div style="font-size:7pt;color:#94a3b8;">(34) 99880-2604 / (34) 99672-5798 · lourenco@altitudetopo.com.br</div>
+    </div>
+    <div class="footer-right">Página 3</div>
+  </div>
+</div>
+
+<!-- CONDIÇÕES GERAIS -->
+<div class="page">
+  <div class="header">
+    <div class="header-logo">${logoB64 ? `<img src="${logoB64}" alt="Altitude"/>` : '<strong>ALTITUDE</strong>'}</div>
+    <div class="header-contact">
+      <strong>Altitude Topografia e Engenharia</strong><br/>
+      (34) 99880-2604 / (34) 99672-5798 - @altitude.te<br/>
+      lourenco@altitudetopo.com.br / marcosdiego@altitudetopo.com.br
+    </div>
+  </div>
+  <div class="content-page">
+    <div class="section-title">Condições Gerais</div>
+    <p class="conditions">As seguintes condições complementam as restantes condições particulares apresentadas nesta proposta e que, no seu conjunto, constituem o acordo entre a <strong>${cliente?.razao_social || "CLIENTE"}</strong> e a <strong>Altitude Topografia e Engenharia</strong>.</p>
+    <div class="cond-title">1. Validade da Proposta</div>
+    <p class="conditions">A presente proposta é válida por um período de 30 (trinta) dias contados a partir da data de envio, depois dos quais a proposta é considerada sem efeito.</p>
+    <div class="cond-title">2. Confidencialidade</div>
+    <p class="conditions">Toda a informação contida neste documento e seus anexos é confidencial, e só poderá ser utilizada pelo CLIENTE no âmbito da avaliação desta proposta. O CLIENTE não poderá, direta ou indiretamente utilizar, apresentar, vender, copiar, reproduzir, divulgar ou publicar qualquer informação contida neste documento sem a autorização prévia e por escrito do FORNECEDOR.</p>
+    <div class="cond-title">3. Aprovação de Proposta</div>
+    <p class="conditions">A encomenda do serviço é aceite como válida, sempre que a aprovação seja efetuada dentro do prazo de validade da proposta, pelo FORNECEDOR ou por uma pessoa com poderes para o ato em representação deste.</p>
+    <div class="cond-title">4. Comunicações e Notificações</div>
+    <p class="conditions">Para assegurar clareza e objetividade entre as partes, todas as comunicações, incluindo pedidos, instruções, avisos, aprovações e respostas deverão ser efetuadas por email e através dos interlocutores que cada parte designou como responsável no início dos trabalhos.</p>
+    <div class="cond-title">5. Alterações</div>
+    <p class="conditions">Todos os pedidos de alteração ou outra forma de solicitação estão sujeitos à apreciação da FORNECEDOR. Se o pedido exigir uma reformulação estrutural de trabalho ou inclusão de serviços não definidos na proposta aprovada, o FORNECEDOR reserva-se o direito de não as implementar, ficando estas alterações sujeitas a apresentação de nova proposta comercial.</p>
+  </div>
+  <div class="footer">
+    <div>
+      <div class="footer-line"></div>
+      <div class="footer-left">Altitude Topografia e Engenharia</div>
+      <div style="font-size:7pt;color:#94a3b8;">(34) 99880-2604 / (34) 99672-5798 · lourenco@altitudetopo.com.br</div>
+    </div>
+    <div class="footer-right">Página 4</div>
+  </div>
+</div>
+
+</body></html>`;
+
+    // Open print window
+    const win = window.open("", "_blank", "width=900,height=700");
+    win.document.write(html);
+    win.document.close();
+    win.onload = () => {
+      setTimeout(() => {
+        win.focus();
+        win.print();
+      }, 800);
+    };
+  };
+
   if (detail) return (
     <div className="content">
       <div style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
@@ -1477,8 +1708,12 @@ function Propostas() {
         <span style={{ fontSize: 13, color: COLORS.textMuted }}>Propostas /</span>
         <span style={{ fontSize: 13, fontWeight: 700 }}>{detail.codigo}</span>
         <Badge status={detail.status} />
-        <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
+        <div style={{ marginLeft: "auto", display: "flex", gap: 8, alignItems: "center" }}>
           <button className="btn btn-ghost btn-sm" onClick={() => { openEdit(detail); setDetailId(null); }}>✏️ Editar</button>
+          <button className="btn btn-primary btn-sm" onClick={() => gerarPDF(detail, detailItens, detailParcelas, detailCli)}
+            style={{ background: "linear-gradient(135deg,#1DB864,#17a358)", display:"flex", alignItems:"center", gap:5 }}>
+            📄 Gerar PDF
+          </button>
           <select className="status-select" value={detail.status} onChange={e => updateStatus(detail.id, e.target.value)}>
             {["rascunho","enviada","aprovada","recusada","expirada"].map(s => <option key={s} value={s}>{STATUS_COLORS[s]?.label}</option>)}
           </select>

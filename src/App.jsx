@@ -13,7 +13,8 @@ const css = `
   .central { display: flex; height: 100vh; overflow: hidden; }
   .sidebar { width: 230px; height: 100vh; background: #EEF2F7; border-right: 1px solid #E2E8F0; padding: 20px; flex-shrink: 0; display: flex; flex-direction: column; }
   .logo { display: flex; gap: 10px; margin-bottom: 30px; align-items: center; }
-  .logo-box { width: 40px; height: 40px; background: linear-gradient(135deg,#334155,#64748B); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex-shrink: 0; }
+  .logo-box { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-box img { width: 44px; height: 44px; object-fit: contain; }
   .logo-text strong { display: block; font-size: 15px; }
   .logo-text small { font-size: 11px; color: #64748b; }
   .menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
@@ -64,7 +65,7 @@ export default function Central() {
       <div className="central">
         <div className="sidebar">
           <div className="logo">
-            <div className="logo-box">ALT</div>
+            <div className="logo-box"><img src="/logo_altitude.png" alt="Altitude" /></div>
             <div className="logo-text"><strong>Altitude</strong><small>Central de Sistemas</small></div>
           </div>
           <ul className="menu">
