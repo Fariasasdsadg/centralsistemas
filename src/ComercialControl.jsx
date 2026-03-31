@@ -62,39 +62,107 @@ function LoginScreen({ onLogin, onVoltar }) {
   }
 
   return (
-    <div style={{ minHeight:"100vh", background:"#EEF2F7", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Segoe UI', system-ui, sans-serif" }}>
-      <div style={{ background:"white", borderRadius:20, padding:"40px 44px", width:"100%", maxWidth:420, boxShadow:"0 8px 40px rgba(0,0,0,0.08)" }}>
-        <div style={{ textAlign:"center", marginBottom:32 }}>
-          <div style={{ width:56, height:56, borderRadius:14, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:24, margin:"0 auto 16px" }}>💼</div>
-          <div style={{ fontWeight:900, fontSize:26, color:"#0A0A0A", marginBottom:8 }}>Bem Vindo!</div>
-          <div style={{ fontSize:15, color:"#64748B" }}>Faça login para acessar o Comercial.</div>
+    <div style={{
+      minHeight: "100vh",
+      background: "#EEF2F7",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "'Segoe UI', system-ui, sans-serif",
+    }}>
+      <div style={{
+        background: "white",
+        borderRadius: 20,
+        padding: "40px 44px",
+        width: "100%",
+        maxWidth: 420,
+        boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
+      }}>
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
+          <div style={{ fontWeight: 900, fontSize: 26, color: "#0A0A0A", marginBottom: 8 }}>
+            Bem Vindo!
+          </div>
+          <div style={{ fontSize: 15, color: "#64748B" }}>
+            Faça login para acessar o sistema Comercial.
+          </div>
         </div>
-        <div style={{ marginBottom:16 }}>
-          <label style={{ fontSize:11, fontWeight:700, color:"#64748B", display:"block", marginBottom:7, textTransform:"uppercase", letterSpacing:"0.7px" }}>Usuário</label>
-          <input value={user} onChange={e => { setUser(e.target.value); setError(""); }} placeholder="Digite seu usuário"
-            style={{ width:"100%", padding:"10px 13px", border:"1.5px solid #E2E8F0", borderRadius:9, fontSize:14, color:"#1E293B", background:"white", outline:"none", boxSizing:"border-box" }}
-            onFocus={e => e.target.style.borderColor="#1DB864"} onBlur={e => e.target.style.borderColor="#E2E8F0"} />
+
+        <div style={{ marginBottom: 16 }}>
+          <label style={{ fontSize: 11, fontWeight: 700, color: "#64748B", display: "block", marginBottom: 7, textTransform: "uppercase", letterSpacing: "0.7px" }}>
+            Usuário
+          </label>
+          <input
+            value={user}
+            onChange={e => { setUser(e.target.value); setError(""); }}
+            placeholder="Digite seu usuário"
+            style={{
+              width: "100%", padding: "10px 13px", border: "1.5px solid #E2E8F0",
+              borderRadius: 9, fontSize: 14, color: "#1E293B",
+              background: "white", outline: "none", boxSizing: "border-box",
+              transition: "border-color 0.2s",
+            }}
+            onFocus={e => e.target.style.borderColor = "#1DB864"}
+            onBlur={e => e.target.style.borderColor = "#E2E8F0"}
+          />
         </div>
-        <div style={{ marginBottom:24 }}>
-          <label style={{ fontSize:11, fontWeight:700, color:"#64748B", display:"block", marginBottom:7, textTransform:"uppercase", letterSpacing:"0.7px" }}>Senha</label>
-          <div style={{ position:"relative" }}>
-            <input type={showPass?"text":"password"} value={pass} onChange={e => { setPass(e.target.value); setError(""); }} placeholder="Digite sua senha"
-              onKeyDown={e => e.key==="Enter" && handleLogin()}
-              style={{ width:"100%", padding:"10px 44px 10px 13px", border:`1.5px solid ${error?"#EF4444":"#E2E8F0"}`, borderRadius:9, fontSize:14, color:"#1E293B", background:"white", outline:"none", boxSizing:"border-box" }}
-              onFocus={e => !error && (e.target.style.borderColor="#1DB864")} onBlur={e => !error && (e.target.style.borderColor="#E2E8F0")} />
-            <button onClick={() => setShowPass(v => !v)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#64748B", fontSize:16, padding:2 }}>
+
+        <div style={{ marginBottom: 24 }}>
+          <label style={{ fontSize: 11, fontWeight: 700, color: "#64748B", display: "block", marginBottom: 7, textTransform: "uppercase", letterSpacing: "0.7px" }}>
+            Senha
+          </label>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPass ? "text" : "password"}
+              value={pass}
+              onChange={e => { setPass(e.target.value); setError(""); }}
+              placeholder="Digite sua senha"
+              onKeyDown={e => e.key === "Enter" && handleLogin()}
+              style={{
+                width: "100%", padding: "10px 44px 10px 13px",
+                border: `1.5px solid ${error ? "#EF4444" : "#E2E8F0"}`,
+                borderRadius: 9, fontSize: 14, color: "#1E293B",
+                background: "white", outline: "none", boxSizing: "border-box",
+                transition: "border-color 0.2s",
+              }}
+              onFocus={e => !error && (e.target.style.borderColor = "#1DB864")}
+              onBlur={e => !error && (e.target.style.borderColor = "#E2E8F0")}
+            />
+            <button
+              onClick={() => setShowPass(v => !v)}
+              style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "#64748B", fontSize: 16, padding: 2 }}>
               {showPass ? "🙈" : "👁"}
             </button>
           </div>
-          {error && <div style={{ fontSize:12, color:"#EF4444", marginTop:8, fontWeight:600 }}>⚠️ {error}</div>}
+          {error && (
+            <div style={{ fontSize: 12, color: "#EF4444", marginTop: 8, fontWeight: 600 }}>
+              ⚠️ {error}
+            </div>
+          )}
         </div>
-        <button onClick={handleLogin} disabled={loading}
-          style={{ width:"100%", padding:"13px", border:"none", borderRadius:11, cursor:loading?"not-allowed":"pointer", fontWeight:800, fontSize:15, background:loading?"#E2E8F0":"linear-gradient(135deg,#0A0A0A,#1DB864)", color:loading?"#94A3B8":"white", transition:"all 0.2s", marginBottom:12 }}>
+
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          style={{
+            width: "100%", padding: "13px", border: "none", borderRadius: 11,
+            cursor: loading ? "not-allowed" : "pointer", fontWeight: 800, fontSize: 15,
+            background: loading ? "#E2E8F0" : "linear-gradient(135deg,#0A0A0A,#1DB864)",
+            color: loading ? "#94A3B8" : "white",
+            transition: "all 0.2s",
+            marginBottom: 12,
+          }}>
           {loading ? "Verificando..." : "Entrar"}
         </button>
-        <button onClick={onVoltar}
-          style={{ width:"100%", padding:"11px", border:"1.5px solid #E2E8F0", borderRadius:11, cursor:"pointer", fontWeight:600, fontSize:13, background:"white", color:"#64748B" }}
-          onMouseEnter={e => e.target.style.background="#F8FAFC"} onMouseLeave={e => e.target.style.background="white"}>
+
+        <button
+          onClick={onVoltar}
+          style={{
+            width: "100%", padding: "11px", border: "1.5px solid #E2E8F0",
+            borderRadius: 11, cursor: "pointer", fontWeight: 600, fontSize: 13,
+            background: "white", color: "#64748B", transition: "all 0.2s",
+          }}
+          onMouseEnter={e => { e.target.style.background = "#F8FAFC"; }}
+          onMouseLeave={e => { e.target.style.background = "white"; }}>
           ← Voltar
         </button>
       </div>
@@ -374,7 +442,7 @@ const css = `
 
   .app { display: flex; height: 100vh; overflow: hidden; }
 
-  .sidebar { width: 240px; flex-shrink: 0; background: ${COLORS.sidebar}; display: flex; flex-direction: column; border-right: 1px solid ${COLORS.border}; }
+  .sidebar { width: 260px; flex-shrink: 0; background: ${COLORS.sidebar}; display: flex; flex-direction: column; border-right: 1px solid ${COLORS.border}; }
   .sidebar-logo { padding: 20px 20px 16px; border-bottom: 1px solid ${COLORS.border}; display: flex; align-items: center; gap: 10px; }
   .sidebar-logo img { width: 36px; height: 36px; object-fit: contain; }
   .sidebar-logo-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: ${COLORS.accent}; text-transform: uppercase; margin-bottom: 2px; }
@@ -1133,13 +1201,9 @@ function Sidebar({ active, setActive, propostas }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-          <div style={{ width:40, height:40, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", color:"white", fontWeight:900, fontSize:13, flexShrink:0 }}>CC</div>
-          <div>
-            <div style={{ fontWeight:900, fontSize:17, color:"#0A0A0A", letterSpacing:"-0.3px" }}>Comercial<span style={{ color:"#1DB864" }}>Control</span></div>
-            <div style={{ fontSize:9, color:"#1DB864", fontWeight:700, letterSpacing:"0.8px", textTransform:"uppercase" }}>Altitude Topografia</div>
-          </div>
-        </div>
+        <div className="sidebar-logo-tag">Altitude TE</div>
+        <div className="sidebar-logo-name">Comercial<span>Control</span></div>
+        <div className="sidebar-logo-sub">Sistema Comercial</div>
       </div>
       <nav className="sidebar-nav">
         {nav.map((item, i) =>
@@ -1154,6 +1218,15 @@ function Sidebar({ active, setActive, propostas }) {
           )
         )}
       </nav>
+      <div className="sidebar-footer">
+        <div className="sidebar-user">
+          <div className="sidebar-avatar">LF</div>
+          <div>
+            <div className="sidebar-user-name">Lourenço Farias</div>
+            <div className="sidebar-user-role">Sócio-Proprietário</div>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 }

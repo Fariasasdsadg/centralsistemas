@@ -48,15 +48,25 @@ const css = `
 `;
 
 export default function Central() {
-  const [active, setActive] = useState("dashboard");
-  const [iframeUrl, setIframeUrl] = useState("");
+  const [active, setActive] = useState(() => localStorage.getItem("central_active") || "dashboard");
+  const [iframeUrl, setIframeUrl] = useState(() => {
+    const saved = localStorage.getItem("central_active");
+    const sys = SYSTEMS.find(s => s.id === saved);
+    return sys?.external || "";
+  });
 
   const openSystem = (sys) => {
     setActive(sys.id);
+    localStorage.setItem("central_active", sys.id);
     if (sys.external) setIframeUrl(sys.external);
   };
 
-  const goHome = () => { setActive("dashboard"); setIframeUrl(""); };
+  const goHome = () => {
+    setActive("dashboard");
+    setIframeUrl("");
+    localStorage.setItem("central_active", "dashboard");
+  };
+
   const activeSystem = SYSTEMS.find(s => s.id === active);
 
   return (
