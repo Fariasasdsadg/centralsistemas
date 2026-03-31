@@ -1,11 +1,106 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
 // ============================================================
-// SUPABASE CONFIG — substitua pelas suas credenciais reais
+// SUPABASE CONFIG — mesmo projeto do RHControl
 // ============================================================
-const SUPABASE_URL = "https://SEU_PROJETO.supabase.co";
-const SUPABASE_ANON_KEY = "SUA_ANON_KEY";
-const USE_SUPABASE = SUPABASE_URL !== "https://SEU_PROJETO.supabase.co";
+const SUPABASE_URL      = "https://ziqqyuburyvmfsnqkqkt.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppcXF5dWJ1cnl2bWZzbnFrcWt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NTE0MjIsImV4cCI6MjA4OTMyNzQyMn0.eljJE-TeDe4Vux1kY4HcwIdhUETnJR2vpuCEAZ6gNNU";
+const USE_SUPABASE = true;
+
+// ============================================================
+// ADMIN AUTH — mesmo usuário/senha do RHControl
+// ============================================================
+const ADMIN_USER      = "admin";
+const ADMIN_PASS_HASH = "fa4ceb16548f4b1aa428afeed1fe8586f88bcd36e9c8483c03a33d573e02a5b9";
+
+async function hashPassword(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+// ============================================================
+// TELA DE BOAS-VINDAS — identidade RHControl
+// ============================================================
+function WelcomeScreen({ onAcessar }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div style={{ minHeight:"100vh", position:"relative", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Segoe UI', system-ui, sans-serif", overflow:"hidden" }}>
+      <div style={{ position:"absolute", inset:0, backgroundImage:"url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80')", backgroundSize:"cover", backgroundPosition:"center", filter:"brightness(0.50)" }} />
+      <div style={{ position:"relative", background:"rgba(15,15,15,0.72)", backdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:20, padding:"48px 52px", textAlign:"center", minWidth:340, maxWidth:420, boxShadow:"0 24px 70px rgba(0,0,0,0.5)" }}>
+        <div style={{ marginBottom:20, display:"flex", justifyContent:"center" }}>
+          <div style={{ width:72, height:72, borderRadius:16, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:32 }}>💼</div>
+        </div>
+        <div style={{ fontSize:11, fontWeight:700, letterSpacing:2, color:"#1DB864", textTransform:"uppercase", marginBottom:8 }}>Altitude Topografia</div>
+        <div style={{ fontSize:20, fontWeight:800, color:"white", marginBottom:6, lineHeight:1.2 }}>Comercial<br/>Control</div>
+        <div style={{ fontSize:13, color:"rgba(255,255,255,0.55)", fontStyle:"italic", marginBottom:36 }}>"Gestão comercial com precisão e resultados."</div>
+        <button onClick={onAcessar} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+          style={{ width:"100%", padding:"14px 0", background:hovered?"#17a358":"#1DB864", border:"none", borderRadius:10, color:"white", fontSize:15, fontWeight:800, cursor:"pointer", letterSpacing:"0.3px", boxShadow:"0 4px 20px rgba(29,184,100,0.35)", transition:"all 0.2s ease", transform:hovered?"translateY(-1px)":"none" }}>
+          Acessar Sistema
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// TELA DE LOGIN — identidade RHControl
+// ============================================================
+function LoginScreen({ onLogin, onVoltar }) {
+  const [user, setUser]     = useState("");
+  const [pass, setPass]     = useState("");
+  const [error, setError]   = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+
+  async function handleLogin() {
+    if (!user || !pass) { setError("Preencha usuário e senha."); return; }
+    setLoading(true); setError("");
+    if (user !== ADMIN_USER) { setError("Usuário ou senha incorretos."); setLoading(false); return; }
+    const hash = await hashPassword(pass);
+    if (hash !== ADMIN_PASS_HASH) { setError("Usuário ou senha incorretos."); setLoading(false); return; }
+    onLogin();
+  }
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#EEF2F7", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"'Segoe UI', system-ui, sans-serif" }}>
+      <div style={{ background:"white", borderRadius:20, padding:"40px 44px", width:"100%", maxWidth:420, boxShadow:"0 8px 40px rgba(0,0,0,0.08)" }}>
+        <div style={{ textAlign:"center", marginBottom:32 }}>
+          <div style={{ width:56, height:56, borderRadius:14, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:24, margin:"0 auto 16px" }}>💼</div>
+          <div style={{ fontWeight:900, fontSize:26, color:"#0A0A0A", marginBottom:8 }}>Bem Vindo!</div>
+          <div style={{ fontSize:15, color:"#64748B" }}>Faça login para acessar o Comercial.</div>
+        </div>
+        <div style={{ marginBottom:16 }}>
+          <label style={{ fontSize:11, fontWeight:700, color:"#64748B", display:"block", marginBottom:7, textTransform:"uppercase", letterSpacing:"0.7px" }}>Usuário</label>
+          <input value={user} onChange={e => { setUser(e.target.value); setError(""); }} placeholder="Digite seu usuário"
+            style={{ width:"100%", padding:"10px 13px", border:"1.5px solid #E2E8F0", borderRadius:9, fontSize:14, color:"#1E293B", background:"white", outline:"none", boxSizing:"border-box" }}
+            onFocus={e => e.target.style.borderColor="#1DB864"} onBlur={e => e.target.style.borderColor="#E2E8F0"} />
+        </div>
+        <div style={{ marginBottom:24 }}>
+          <label style={{ fontSize:11, fontWeight:700, color:"#64748B", display:"block", marginBottom:7, textTransform:"uppercase", letterSpacing:"0.7px" }}>Senha</label>
+          <div style={{ position:"relative" }}>
+            <input type={showPass?"text":"password"} value={pass} onChange={e => { setPass(e.target.value); setError(""); }} placeholder="Digite sua senha"
+              onKeyDown={e => e.key==="Enter" && handleLogin()}
+              style={{ width:"100%", padding:"10px 44px 10px 13px", border:`1.5px solid ${error?"#EF4444":"#E2E8F0"}`, borderRadius:9, fontSize:14, color:"#1E293B", background:"white", outline:"none", boxSizing:"border-box" }}
+              onFocus={e => !error && (e.target.style.borderColor="#1DB864")} onBlur={e => !error && (e.target.style.borderColor="#E2E8F0")} />
+            <button onClick={() => setShowPass(v => !v)} style={{ position:"absolute", right:12, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#64748B", fontSize:16, padding:2 }}>
+              {showPass ? "🙈" : "👁"}
+            </button>
+          </div>
+          {error && <div style={{ fontSize:12, color:"#EF4444", marginTop:8, fontWeight:600 }}>⚠️ {error}</div>}
+        </div>
+        <button onClick={handleLogin} disabled={loading}
+          style={{ width:"100%", padding:"13px", border:"none", borderRadius:11, cursor:loading?"not-allowed":"pointer", fontWeight:800, fontSize:15, background:loading?"#E2E8F0":"linear-gradient(135deg,#0A0A0A,#1DB864)", color:loading?"#94A3B8":"white", transition:"all 0.2s", marginBottom:12 }}>
+          {loading ? "Verificando..." : "Entrar"}
+        </button>
+        <button onClick={onVoltar}
+          style={{ width:"100%", padding:"11px", border:"1.5px solid #E2E8F0", borderRadius:11, cursor:"pointer", fontWeight:600, fontSize:13, background:"white", color:"#64748B" }}
+          onMouseEnter={e => e.target.style.background="#F8FAFC"} onMouseLeave={e => e.target.style.background="white"}>
+          ← Voltar
+        </button>
+      </div>
+    </div>
+  );
+}
 
 async function sb(path, options = {}) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
@@ -1838,10 +1933,42 @@ function Contratos() {
 }
 
 // ============================================================
-// APP ROOT
+// APP ROOT — com WelcomeScreen e LoginScreen (padrão RHControl)
 // ============================================================
 export default function App() {
+  const [appScreen, setAppScreen] = useState(() => {
+    const saved = localStorage.getItem("comercial_screen") || "welcome";
+    if (saved === "app" && localStorage.getItem("comercial_admin") !== "true") return "welcome";
+    return saved;
+  });
+  const [isAdmin, setIsAdmin] = useState(() => localStorage.getItem("comercial_admin") === "true");
+
+  function goToScreen(s) { localStorage.setItem("comercial_screen", s); setAppScreen(s); }
+
+  function handleLogin() {
+    localStorage.setItem("comercial_admin", "true");
+    setIsAdmin(true);
+    goToScreen("app");
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("comercial_admin");
+    localStorage.setItem("comercial_screen", "welcome");
+    setIsAdmin(false);
+    setAppScreen("welcome");
+  }
+
+  if (appScreen === "welcome") return <WelcomeScreen onAcessar={() => goToScreen("login")} />;
+  if (appScreen === "login" || (appScreen === "app" && !isAdmin)) {
+    return <LoginScreen onLogin={handleLogin} onVoltar={() => goToScreen("welcome")} />;
+  }
+
+  return <ComercialApp isAdmin={isAdmin} onLogout={handleLogout} />;
+}
+
+function ComercialApp({ isAdmin, onLogout }) {
   const [active, setActive] = useState("dashboard");
+  const [confirmLogout, setConfirmLogout] = useState(false);
   const { data: propostas } = useTable("propostas", "propostas");
   const { data: contratos } = useTable("contratos", "contratos");
   const { data: orcamentos } = useTable("orcamentos", "orcamentos");
@@ -1864,9 +1991,11 @@ export default function App() {
         <div className="main">
           <div className="topbar">
             <div className="topbar-title">Comercial<span>Control</span> — {titles[active]}</div>
-            <span className={`topbar-status ${USE_SUPABASE ? "online" : "offline"}`}>
-              {USE_SUPABASE ? "🟢 Supabase" : "🟡 Mock"}
-            </span>
+            <span className="topbar-status online">🟢 Admin</span>
+            <button onClick={() => setConfirmLogout(true)}
+              style={{ padding:"6px 14px", border:"1.5px solid #E2E8F0", borderRadius:8, background:"white", cursor:"pointer", fontSize:12, fontWeight:700, color:"#64748B" }}>
+              Sair
+            </button>
             <div style={{ fontSize: 12, color: COLORS.textMuted, fontFamily: "'IBM Plex Mono', monospace" }}>
               {new Date().toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short", year: "numeric" })}
             </div>
@@ -1874,6 +2003,17 @@ export default function App() {
           {pages[active]}
         </div>
       </div>
+      {confirmLogout && (
+        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:1000 }}>
+          <div style={{ background:"white", borderRadius:16, padding:"28px 32px", width:320, boxShadow:"0 24px 70px rgba(0,0,0,0.3)", textAlign:"center" }}>
+            <div style={{ fontWeight:800, fontSize:16, color:"#0A0A0A", marginBottom:20 }}>Deseja sair do Comercial?</div>
+            <div style={{ display:"flex", gap:10 }}>
+              <button onClick={() => setConfirmLogout(false)} style={{ flex:1, padding:"11px", border:"1.5px solid #E2E8F0", borderRadius:10, cursor:"pointer", fontWeight:700, fontSize:14, background:"white", color:"#475569" }}>Não</button>
+              <button onClick={onLogout} style={{ flex:1, padding:"11px", border:"none", borderRadius:10, cursor:"pointer", fontWeight:700, fontSize:14, background:"linear-gradient(135deg,#0A0A0A,#1DB864)", color:"white" }}>Sim</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
